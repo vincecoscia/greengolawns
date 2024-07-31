@@ -98,7 +98,7 @@ export default function Home() {
   }, [selectedCategory, categories]);
 
   return (
-    <main className="">
+    <main className="text-white">
       {/* Nav */}
       <nav>
         <div className="max-w-6xl mx-auto grid px-8 lg:px-0 grid-cols-3 items-center pt-16">
