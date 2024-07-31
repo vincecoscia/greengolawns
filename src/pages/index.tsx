@@ -130,7 +130,7 @@ export default function Home() {
         <div>
           <h1 className="text-4xl font-bold mb-10">Services</h1>
           <div
-            className="flex lg:gap-4 gap-2 overflow-x-auto relative"
+            className="flex lg:gap-4 gap-2 overflow-x-auto relative hide-scroll"
             ref={containerRef}
           >
             <div
