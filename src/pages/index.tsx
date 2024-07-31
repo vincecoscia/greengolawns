@@ -1,118 +1,231 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import { useState, useEffect, useRef } from "react";
 
 export default function Home() {
+  const [selectedCategory, setSelectedCategory] = useState("Lawn Maintenance");
+  const categories = ["Lawn Maintenance", "Landscaping", "Cleanups"];
+  const services = [
+    {
+      category: "Lawn Maintenance",
+      name: "Mowing",
+      description:
+        "We offer weekly mowing services to keep your lawn looking its best.",
+      img: "https://greengolawncare.s3.amazonaws.com/static/mowing.jpg",
+    },
+    {
+      category: "Lawn Maintenance",
+      name: "Edging",
+      description: "We edge your lawn to give it a clean, professional look.",
+      img: "https://greengolawncare.s3.amazonaws.com/static/edging.jpg",
+    },
+    {
+      category: "Lawn Maintenance",
+      name: "Trimming",
+      description: "We trim your lawn to keep it looking neat and tidy.",
+      img: "https://greengolawncare.s3.amazonaws.com/static/trimming.jpg",
+    },
+    {
+      category: "Landscaping",
+      name: "Planting",
+      description:
+        "We offer planting services to help you create a beautiful landscape.",
+      img: "https://greengolawncare.s3.amazonaws.com/static/planting.jpg",
+    },
+    {
+      category: "Landscaping",
+      name: "Mulching",
+      description:
+        "We offer mulching services to help protect your plants and soil.",
+      img: "https://greengolawncare.s3.amazonaws.com/static/mulching.jpg",
+    },
+    {
+      category: "Landscaping",
+      name: "Sodding",
+      description:
+        "We offer sodding services to help you create a lush, green lawn.",
+      img: "https://greengolawncare.s3.amazonaws.com/static/sodding.jpg",
+    },
+    {
+      category: "Cleanups",
+      name: "Leaf Removal",
+      description:
+        "We offer leaf removal services to help keep your lawn clean and tidy.",
+      img: "https://greengolawncare.s3.amazonaws.com/static/leaf_removal.jpg",
+    },
+    {
+      category: "Cleanups",
+      name: "Debris Removal",
+      description:
+        "We offer debris removal services to help keep your lawn looking its best.",
+      img: "https://greengolawncare.s3.amazonaws.com/static/debris_removal.jpg",
+    },
+    {
+      category: "Cleanups",
+      name: "Gutter Cleaning",
+      description:
+        "We offer gutter cleaning services to help protect your home from water damage.",
+      img: "https://greengolawncare.s3.amazonaws.com/static/gutter_cleaning.jpg",
+    },
+  ];
+
+  const categoryRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const previousCategory = useRef<string | null>(null);
+  const [backgroundStyle, setBackgroundStyle] = useState<React.CSSProperties>(
+    {}
+  );
+
+  useEffect(() => {
+    if (selectedCategory !== previousCategory.current) {
+      const activeButton =
+        categoryRefs.current[categories.indexOf(selectedCategory)];
+      const container = containerRef.current;
+      if (activeButton && container) {
+        const rect = activeButton.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        const scrollLeft = container.scrollLeft;
+
+        setBackgroundStyle({
+          width: `${rect.width}px`,
+          height: `${rect.height}px`,
+          transform: `translateX(${
+            rect.left - containerRect.left + scrollLeft
+          }px)`,
+        });
+
+        previousCategory.current = selectedCategory;
+      }
+    }
+  }, [selectedCategory, categories]);
+
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="">
+      {/* Nav */}
+      <nav>
+        <div className="max-w-6xl mx-auto grid px-8 lg:px-0 grid-cols-3 items-center pt-16">
+          <button className="button w-fit">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+          </button>
+          <img
+            src="/greengologo.svg"
+            alt="GreenGo Lawncare"
+            className="justify-self-center w-20 lg:w-36"
+          />
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      </nav>
+      {/* Hero Section */}
+      <section className="max-w-6xl mx-auto px-8 lg:px-0 mt-16">
+        <div>
+          <h1 className="text-4xl font-bold mb-10">Services</h1>
+          <div
+            className="flex lg:gap-4 gap-2 overflow-x-auto relative"
+            ref={containerRef}
+          >
+            <div
+              className="absolute top-0 left-0 bg-green-600 rounded-lg transition-transform ease-out duration-300"
+              style={backgroundStyle}
+            ></div>
+            {categories.map((category, index) => (
+              <button
+                key={category}
+                ref={(el) => (categoryRefs.current[index] = el)}
+                className="py-2 px-4 text-sm font-semibold text-white text-nowrap z-10"
+                onClick={() => setSelectedCategory(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+          <div className="mt-8 flex gap-x-8 overflow-x-auto w-full py-4 px-2">
+            {services
+              .filter((service) => service.category === selectedCategory)
+              .map((service) => (
+                <div
+                  key={service.name}
+                  className="card p-4 min-w-[80vw] lg:min-w-72 lg:w-96"
+                >
+                  <div
+                    className="h-48 rounded-lg mb-4 bg-cover bg-center"
+                    style={{ backgroundImage: `url(${service.img})` }}
+                  ></div>
+                  <h2 className="text-xl font-semibold mb-4">{service.name}</h2>
+                  <p className="text-gray-400 text-sm leading-6">
+                    {service.description}
+                  </p>
+                  <div className="flex items-center justify-between w-full mt-6">
+                    <button className="button">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                        />
+                      </svg>
+                    </button>
+                    <button className="p-4 rounded-lg bg-green-600 text-white ml-4 shadow-green-950 hover:shadow-green-950 shadow-md hover:shadow-lg transition-all hover:transition-transform hover:scale-105 active:scale-95">
+                      <div className="flex items-center">
+                        <p className="font-bold">Book Now</p>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="size-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                          />
+                        </svg>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      </section>
+      {/* About Section */}
+      <section className="  bg-green-950">
+        <div className="max-w-6xl mx-auto py-16 px-8 lg:px-0 mt-16">
+          <div className="grid lg:grid-cols-2 grid-cols-1 gap-8">
+            <div>
+              <h2 className="text-2xl font-bold mb-4">About Us</h2>
+              <p className="text-gray-400 leading-8">
+                GreenGo Lawncare is a family-owned business that has been
+                serving the community for over 20 years. We take pride in
+                providing high-quality, reliable services to our customers. Our
+                team of experienced professionals is dedicated to keeping your
+                lawn looking its best. Whether you need mowing, landscaping, or
+                cleanups, we have you covered. Contact us today to schedule a
+                service.
+              </p>
+            </div>
+            <div className="h-72 bg-cover bg-center rounded-lg"></div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
