@@ -140,7 +140,9 @@ export default function Home() {
             {categories.map((category, index) => (
               <button
                 key={category}
-                ref={(el) => (categoryRefs.current[index] = el)}
+                ref={(el) => {
+                  categoryRefs.current[index] = el;
+                }}
                 className="py-2 px-4 text-sm font-semibold text-white text-nowrap z-10"
                 onClick={() => setSelectedCategory(category)}
               >
