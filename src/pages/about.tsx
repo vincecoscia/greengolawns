@@ -8,32 +8,11 @@ import { siteConfig } from "@/lib/site-config";
 export default function About() {
   const teamMembers = [
     {
-      name: "Mike Johnson",
+      name: "Gabriel Coscia",
       role: "Founder & CEO",
-      experience: "25+ years",
-      description: "Mike founded GreenGo Lawncare with a passion for creating beautiful outdoor spaces. His expertise in horticulture and business management has led the company to become a trusted name in lawn care.",
+      experience: "10+ years",
+      description: "Gabriel founded GreenGo Lawncare with a passion for creating beautiful outdoor spaces. His expertise in horticulture and business management has led the company to become a trusted name in lawn care.",
       image: "👨‍💼"
-    },
-    {
-      name: "Sarah Williams",
-      role: "Landscape Designer",
-      experience: "15+ years",
-      description: "Sarah brings creativity and technical expertise to every landscaping project. She specializes in sustainable design and native plant integration.",
-      image: "👩‍🌾"
-    },
-    {
-      name: "Tom Rodriguez",
-      role: "Operations Manager",
-      experience: "12+ years",
-      description: "Tom ensures every job is completed to the highest standards. He manages our field teams and maintains our quality control processes.",
-      image: "👨‍🔧"
-    },
-    {
-      name: "Lisa Chen",
-      role: "Customer Relations",
-      experience: "8+ years",
-      description: "Lisa is your first point of contact and ensures every customer receives exceptional service from initial consultation to project completion.",
-      image: "👩‍💼"
     }
   ];
 
@@ -76,7 +55,7 @@ export default function About() {
             About GreenGo Lawncare
           </h1>
           <p className="text-xl text-muted-foreground">
-            For over two decades, we&apos;ve been transforming outdoor spaces and helping 
+            For over a decade, we&apos;ve been transforming outdoor spaces and helping 
             families create the perfect lawn and landscape for their homes.
           </p>
         </div>
@@ -90,7 +69,7 @@ export default function About() {
               <h2 className="text-3xl font-bold mb-6">Our Story</h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  GreenGo Lawncare was founded in 2003 by Mike Johnson, a passionate horticulturist 
+                  GreenGo Lawncare was founded in 2023 by Gabriel Coscia, a passionate horticulturist 
                   who believed that every homeowner deserved a beautiful, healthy lawn. What started 
                   as a one-person operation with a single mower has grown into a full-service 
                   landscaping company serving {siteConfig.stats.customersServed} satisfied customers.
@@ -113,7 +92,7 @@ export default function About() {
                 <div className="text-center space-y-4">
                   <div className="text-6xl">🏡</div>
                   <p className="text-lg font-semibold">Family-Owned Business</p>
-                  <p className="text-muted-foreground">Serving the community since 2003</p>
+                  <p className="text-muted-foreground">Serving the community since 2015</p>
                 </div>
               </div>
             </Card>
