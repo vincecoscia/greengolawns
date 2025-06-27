@@ -58,10 +58,7 @@ npm install eslint prettier eslint-config-prettier eslint-plugin-react eslint-pl
 
 ## 5. AWS Image Hosting
 
-- **S3 Bucket**: Configure bucket for public/private image hosting
-- **IAM Credentials**: Store in environment variables
-- **Upload Utility**: Implement `uploadImage(file)` using `@aws-sdk/client-s3`
-- **Image Optimization**: Use Next.js `next/image` with S3 URLs
+- **S3 Bucket**: Configure bucket for public/private image hosting (already done)
 
 ## 6. Pages & Content
 

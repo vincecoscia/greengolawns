@@ -1,8 +1,10 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Menu, Image as ImageIcon, ChevronRight } from "lucide-react";
+import { Image as ImageIcon, ChevronRight } from "lucide-react";
+import Layout from "@/components/layout/Layout";
+import Hero from "@/components/sections/Hero";
+import { siteConfig } from "@/lib/site-config";
 
 export default function Home() {
   const services = [
@@ -79,27 +81,20 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-background">
-      {/* Navigation */}
-      <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="max-w-6xl mx-auto flex items-center justify-between px-8 lg:px-0 py-4">
-          <Button variant="outline" size="icon">
-            <Menu className="h-4 w-4" />
-          </Button>
-          <div className="flex items-center justify-center p-2 bg-emerald-950 rounded-lg">
-          <img
-            src="/greengologo.svg"
-            alt="GreenGo Lawncare"
-            className="w-20 lg:w-36"
-          />
-          </div>
-          <div className="w-10" /> {/* Spacer for centering */}
-        </div>
-      </nav>
+    <Layout>
+      {/* Hero Section */}
+      <Hero />
 
       {/* Services Section */}
-      <section className="max-w-6xl mx-auto px-8 lg:px-0 py-16">
-        <h1 className="text-4xl font-bold mb-10 text-center">Our Services</h1>
+      <section className="py-16 bg-muted/30">
+        <div className="max-w-6xl mx-auto px-8 lg:px-0">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Our Services</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              From regular maintenance to complete landscape transformations, 
+              we provide comprehensive lawn care services tailored to your needs.
+            </p>
+          </div>
         
         <Tabs defaultValue="lawn-maintenance" className="w-full">
           <TabsList className="grid w-full grid-cols-3 mb-8">
@@ -192,35 +187,43 @@ export default function Home() {
             </div>
           </TabsContent>
         </Tabs>
+        </div>
       </section>
 
       {/* About Section */}
-      <section className="bg-muted/50">
-        <div className="max-w-6xl mx-auto py-16 px-8 lg:px-0">
-          <div className="grid lg:grid-cols-2 grid-cols-1 gap-8 items-center">
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto px-8 lg:px-0">
+          <div className="grid lg:grid-cols-2 grid-cols-1 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-6">About Us</h2>
-              <p className="text-muted-foreground leading-7 text-lg">
+              <h2 className="text-3xl font-bold mb-6">About GreenGo Lawncare</h2>
+              <p className="text-muted-foreground leading-7 text-lg mb-6">
                 GreenGo Lawncare is a family-owned business that has been
                 serving the community for over 20 years. We take pride in
                 providing high-quality, reliable services to our customers. Our
                 team of experienced professionals is dedicated to keeping your
-                lawn looking its best. Whether you need mowing, landscaping, or
-                cleanups, we have you covered. Contact us today to schedule a
-                service.
+                lawn looking its best.
+              </p>
+              <p className="text-muted-foreground leading-7 mb-6">
+                Whether you need mowing, landscaping, or cleanups, we have you covered. 
+                We use professional-grade equipment and eco-friendly practices to ensure 
+                your lawn thrives while protecting the environment.
               </p>
               <Button className="mt-6" size="lg">
-                Contact Us Today
+                Learn More About Us
               </Button>
             </div>
-            <Card className="h-80">
-              <div className="h-full bg-muted rounded-lg flex items-center justify-center">
-                <p className="text-muted-foreground">About Image Placeholder</p>
+            <Card className="h-80 overflow-hidden">
+              <div className="h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                <div className="text-center space-y-4">
+                  <div className="text-6xl">🌿</div>
+                  <p className="text-lg font-semibold">{siteConfig.stats.yearsExperience} Years of Excellence</p>
+                  <p className="text-muted-foreground">Trusted by {siteConfig.stats.customersServed} families</p>
+                </div>
               </div>
             </Card>
           </div>
         </div>
       </section>
-    </main>
+    </Layout>
   );
 }

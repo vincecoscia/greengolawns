@@ -21,20 +21,30 @@ This is a Next.js 14 project for GreenGo Lawncare, a lawn care service company w
 - **React 18** for UI components
 - **shadcn/ui** component library built on Radix UI primitives
 - **Tailwind CSS** for styling with CSS custom properties
+- **React Hook Form + Zod** for form validation
+- **next-seo** for SEO and Open Graph tags
 - **Vercel Analytics** for usage tracking
 - **Lucide React** for icons
 
 ### Project Structure
 - `src/pages/` - Next.js pages using Pages Router
-  - `index.tsx` - Main homepage with services showcase using shadcn/ui components
-  - `_app.tsx` - App wrapper with global styles and analytics
+  - `index.tsx` - Homepage with hero section and services overview
+  - `services.tsx` - Detailed services page with pricing
+  - `landscaping.tsx` - Landscaping services with gallery and testimonials
+  - `about.tsx` - Company information, team, and values
+  - `contact.tsx` - Contact form with validation using react-hook-form + zod
+  - `_app.tsx` - App wrapper with global styles, analytics, and SEO
   - `_document.tsx` - Custom document structure
   - `api/` - API routes
-- `src/components/ui/` - shadcn/ui components (Button, Card, Tabs)
+- `src/components/` - Reusable UI components
+  - `layout/` - Header, Footer, and Layout components
+  - `sections/` - Page sections like Hero
+  - `ui/` - shadcn/ui components (Button, Card, Tabs, Input, etc.)
 - `src/lib/` - Utility functions including `cn()` for class merging
 - `src/styles/` - Global styles with shadcn CSS variables
 - `public/` - Static assets including logos and favicons
 - `components.json` - shadcn/ui configuration
+- `next-seo.config.js` - SEO configuration with Open Graph tags
 
 ### Key Features
 - **Service Categories**: Lawn Maintenance, Landscaping, Cleanups displayed with Tabs component
