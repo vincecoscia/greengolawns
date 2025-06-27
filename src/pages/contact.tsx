@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import emailjs from "@emailjs/browser";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Phone, Mail, MapPin, Clock, CheckCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, CheckCircle, AlertCircle } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import { siteConfig } from "@/lib/site-config";
 
@@ -24,6 +25,7 @@ type ContactForm = z.infer<typeof contactSchema>;
 export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const {
     register,
@@ -36,15 +38,44 @@ export default function Contact() {
 
   const onSubmit = async (data: ContactForm) => {
     setIsLoading(true);
+    setError(null);
     
-    // Simulate form submission
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log("Form data:", data);
+      // EmailJS service configuration
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error("EmailJS configuration is missing. Please set up environment variables.");
+      }
+
+      // Prepare template parameters
+      const templateParams = {
+        from_name: data.name,
+        from_email: data.email,
+        phone: data.phone,
+        service: data.service,
+        message: data.message,
+        to_email: siteConfig.contact.email,
+        company_name: siteConfig.company.name,
+        submission_date: new Date().toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+      };
+
+      // Send email using EmailJS
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      
       setIsSubmitted(true);
       reset();
     } catch (error) {
       console.error("Error submitting form:", error);
+      setError(error instanceof Error ? error.message : "Failed to send message. Please try again or call us directly.");
     } finally {
       setIsLoading(false);
     }
@@ -213,6 +244,13 @@ export default function Contact() {
                       <p className="text-sm text-red-500">{errors.message.message}</p>
                     )}
                   </div>
+
+                  {error && (
+                    <div className="flex items-center space-x-2 p-3 bg-red-50 border border-red-200 rounded-md">
+                      <AlertCircle className="h-4 w-4 text-red-500" />
+                      <p className="text-sm text-red-700">{error}</p>
+                    </div>
+                  )}
 
                   <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
                     {isLoading ? "Sending..." : "Send Message"}
