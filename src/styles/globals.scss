@@ -2,86 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 142 76% 36%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 142 76% 36%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 142 76% 36%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 142 76% 36%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(6, 14, 5)
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
-
-
-.button {
-  padding: 1rem 1rem;
-  border: 2px solid rgba(6, 14, 5);
-  box-shadow:
-    4px 4px 6px 0 rgba(0, 0, 0, 0.643),
-    -2px -2px 6px rgb(71, 71, 71);
-  border-radius: 10px;
-  cursor: pointer;
-  transition:
-    color 0.2s ease-out,
-    transform 0.2s ease-out;
-  color: white;
-
-  &:hover {
-    transform: scale(1.05);
-    box-shadow:
-      4px 4px 6px 0 rgba(0, 0, 0, 0.663),
-      -4px -4px 6px rgba(255, 255, 255, 0.251);
-  }
-
-  &:active {
-    outline: none;
-    transform: scale(0.95);
-    box-shadow:
-      4px 4px 8px 0 rgb(0, 0, 0),
-      -4px -4px 8px rgba(255, 255, 255, 0.413),
-      4px 4px 8px 0 rgb(0, 0, 0) inset,
-      -4px -4px 8px rgba(255, 255, 255, 0.24) inset;
-  }
-}
-
-.button:hover .hover-color {
-  filter: brightness(0) saturate(100%) invert(27%) sepia(90%) saturate(1769%) hue-rotate(214deg) brightness(83%) contrast(107%);
-}
-
-.card {
-  border: 2px solid rgba(6, 14, 5);
-  box-shadow:
-    4px 4px 6px 0 rgba(0, 0, 0, 0.643),
-    -2px -2px 6px rgb(71, 71, 71);
-  border-radius: 10px;
-  transition:
-    color 0.2s ease-out,
-    transform 0.2s ease-out;
-  color: white;
-
-}
-
-.hide-scroll::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.hidescroll {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
 }
